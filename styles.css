@@ -1,0 +1,94 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+body {
+    background-color: rgb(209, 234, 255);
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    width: 100vw;
+}
+
+#app-container {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+/* 
+    RIGHT PANEL
+*/
+
+#right-panel {
+    background-color: rgb(255, 228, 228);
+
+    width: 35%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#input-container {
+    height: 40%;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0px 0px 0px  1px black;
+    background-color: aliceblue;
+}
+#image-container {
+    height: 40%;
+    width: 90%;
+
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+
+    row-gap: 20px;
+
+    box-shadow: 0px 0px 0px  1px black;
+    background-color: aliceblue;
+}
+
+#small-image {
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid #ddd;
+}
+
+
+/* 
+    LEFT PANEL
+*/
+#left-panel {
+    background-color: rgb(220, 255, 218);
+
+    width: 65%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+#canvas {
+    border: 1px solid black;
+    /* width: 500px;
+    height: 500px; */
+}

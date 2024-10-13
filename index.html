@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pärlplattan</title>
+
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script type="module" src="main.js" defer></script>
+</head>
+
+<body>
+
+    <!-- <h1>Pärlplattan</h1> -->
+
+    <div id="app-container">
+
+
+
+        <div id="left-panel">
+            <canvas id="canvas" height=""></canvas>
+        </div>
+
+
+
+
+        <div id="right-panel">
+
+            <div id="input-container">
+
+                <div>
+                    <!-- <label for="size" >Storlek:</label> -->
+                    <input type="range" min="10" max="100" step="2" id="input1" placeholder="Enter value">
+                    <p>Höjd: <output id="value"></output></p>
+                </div>
+
+            </div>
+
+            <div id="image-container">
+
+                <div>
+                    <label for="image-selector">Select an image:</label>
+                    <input type="file" id="image-selector" accept="image/*">
+                </div>
+
+                <div>
+                    <img id="small-image" alt="Selected Image">
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+</body>
+
+</html>
