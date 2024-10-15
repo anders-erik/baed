@@ -18,22 +18,20 @@
 
 
 
-        <div id="left-panel">
-            <canvas id="canvas" height=""></canvas>
-        </div>
-
-
-
-
+        
         <div id="right-panel">
 
             <div id="input-container">
 
                 <div>
                     <!-- <label for="size" >Storlek:</label> -->
-                    <input type="range" min="10" max="100" step="2" id="input1" placeholder="Enter value">
+                    <input type="range" min="4" max="100" step="2" id="input1" placeholder="Enter value">
                     <p>Höjd: <output id="value"></output></p>
                 </div>
+
+                <button id="run">
+                    RUN RUN RUN
+                </button>
 
             </div>
 
@@ -47,11 +45,27 @@
                 <div>
                     <img id="small-image" alt="Selected Image">
                 </div>
+                <canvas id="original-image-canvas"></canvas>
+
+                <div>
+                    <div id="img-h"></div>
+                    <div id="img-w"></div>
+                </div>
 
             </div>
 
 
         </div>
+
+
+
+        <div id="left-panel">
+            <canvas id="canvas" height=""></canvas>
+        </div>
+
+
+
+
 
 
 
