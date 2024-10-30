@@ -3,10 +3,10 @@
 /* 
 	IMAGE DATA
 */
-const imageElement = document.getElementById('small-image');
-let fullSizeImageElement;
-const imageCanvas = document.getElementById('original-image-canvas');
-const imageContext = imageCanvas.getContext("2d");
+const smallImageElement = document.getElementById('small-image');
+let fullSizeImageElement = document.getElementById("original-image");
+let originalCanvas = document.getElementById('original-image-canvas');
+let originalContext = originalCanvas.getContext("2d");
 
 // Imagedata object
 let imageData;
@@ -22,13 +22,13 @@ export function setPixels(_UInt8Array){
 	IMAGE SIZES
 */
 // Actual image
-let imageHeight = 0;
-let imageWidth = 0;
+let fullImageHeight = 0;
+let fullImageWidth = 0;
 let heightToWidthRatio = 0;
 
 // Canvas-rendered image
-let CANVAS_HEIGHT = 500;
-let canvas_width = 0;
+let BEAD_CANVAS_HEIGHT = 500;
+let bead_canvas_width = 0;
 let imageToCanvasHeightRatio = 0; 
 
 
@@ -44,8 +44,8 @@ let beadRadius;
 /* 
 	OUTPUT CANVAS
 */
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const beadCanvas = document.getElementById('canvas');
+const beadContext = beadCanvas.getContext('2d');
 
 
 
@@ -56,23 +56,32 @@ function init_canvas(){
 	/* 
 		Original Image + It's Canvas for data access
 	*/
-	fullSizeImageElement = new Image();
-	fullSizeImageElement.src = imageElement.src;
 
-    console.log('smallImage = ', imageElement)
-    imageWidth = fullSizeImageElement.width;
-    imageHeight = fullSizeImageElement.height;
-	console.log('imageWidth = ', imageWidth)
-	console.log('imageHeight = ', imageHeight)
-	
+
+
+	// fullSizeImageElement = new Image();
+	// fullSizeImageElement.src = smallImageElement.src;
+    console.log('fullSizeImageElement = ', fullSizeImageElement)
+    console.log('fullSizeImageElement.height = ', fullSizeImageElement.height)
+    console.log('fullSizeImageElement.width = ', fullSizeImageElement.width)
+    console.log("");
+    console.log('smallImageElement = ', smallImageElement)
+    fullImageWidth = fullSizeImageElement.width;
+    fullImageHeight = fullSizeImageElement.height;
+	console.log('fullImageWidth = ', fullImageWidth)
+	console.log('fullImageHeight = ', fullImageHeight)
+
+    // DEV 2024-10-28
+    originalCanvas = document.getElementById('original-image-canvas');
+    originalContext = originalCanvas.getContext("2d");
 
 	// Draw the image onto the canvas
-	imageCanvas.width = imageWidth;
-    imageCanvas.height = imageHeight;
-    imageContext.drawImage(imageElement, 0, 0);
+	originalCanvas.width = fullImageWidth;
+    originalCanvas.height = fullImageHeight;  
+    originalContext.drawImage(smallImageElement, 0, 0);
 
     // Access raw pixel data
-    imageData = imageContext.getImageData(0, 0, imageCanvas.width, imageCanvas.height);
+    imageData = originalContext.getImageData(0, 0, originalCanvas.width, originalCanvas.height);
     pixels = imageData.data;
 	console.log('pixels.length = ', pixels.length)
 	console.log('pixels.length / 4 = ', pixels.length / 4)
@@ -82,23 +91,23 @@ function init_canvas(){
 		Output canvas with circles
 	*/
 	
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    beadContext.clearRect(0, 0, beadCanvas.width, beadCanvas.height);
 
 
-    heightToWidthRatio =  imageWidth / imageHeight;
+    heightToWidthRatio =  fullImageWidth / fullImageHeight;
     console.log("heightToWidthRatio = ", heightToWidthRatio)
 
 	// CANVAS_HEIGHT = imageHeight;
-    canvas_width = CANVAS_HEIGHT * heightToWidthRatio;
+    bead_canvas_width = BEAD_CANVAS_HEIGHT * heightToWidthRatio;
 
 
-	imageToCanvasHeightRatio = CANVAS_HEIGHT / imageHeight;
+	imageToCanvasHeightRatio = BEAD_CANVAS_HEIGHT / fullImageHeight;
 	console.log("imageToCanvasHeightRatio = ", imageToCanvasHeightRatio)
 
 
     // Set canvas size + 2 for a 1px border
-    canvas.width = canvas_width + 2;
-    canvas.height = CANVAS_HEIGHT + 2;
+    beadCanvas.width = bead_canvas_width + 2;
+    beadCanvas.height = BEAD_CANVAS_HEIGHT + 2;
     // ctx.canvas.width  = window.innerWidth;
     // ctx.canvas.height = window.innerHeight;
     // ctx.drawImage(imageElement, 1, 1, canvas_width, CANVAS_HEIGHT);
@@ -116,7 +125,7 @@ function init_canvas(){
     console.log("pearlCountWidth = ", pearlCountWidth);
 
     // pearlRadius = Math.floor(CANVAS_HEIGHT / pearlCountHeight)
-    beadRadius = 0.5 * imageHeight / pearlCountHeight;
+    beadRadius = 0.5 * fullImageHeight / pearlCountHeight;
 	console.log("pearlRadius = ", beadRadius);
 	
 }
@@ -189,7 +198,7 @@ function getImagePixelAt(doub_x, doub_y){
 
 
     // number of bytes from beginning of file
-	const index = 4 * imageWidth * _y + 4 * _x;
+	const index = 4 * fullImageWidth * _y + 4 * _x;
     let ri = index + 0;
     let gi = index + 1;
     let bi = index + 2;
@@ -244,10 +253,10 @@ function drawCircle(img_x, img_y, img_r, _color){
     let endAngle = 2*Math.PI;
     let counterclockwise = true;
 
-    ctx.beginPath();
-    ctx.arc(canv_x, canv_y, canv_r, startAngle, endAngle, counterclockwise);
-    ctx.fillStyle = _color;
-    ctx.fill();
+    beadContext.beginPath();
+    beadContext.arc(canv_x, canv_y, canv_r, startAngle, endAngle, counterclockwise);
+    beadContext.fillStyle = _color;
+    beadContext.fill();
     // ctx.stroke();
 }
 
@@ -275,14 +284,14 @@ function setColor(_xx, _yy){
 
 function drawSquareXY(x, y){
     // Example shape (rectangle)
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(x, y, 1, 1);
+    beadContext.fillStyle = 'blue';
+    beadContext.fillRect(x, y, 1, 1);
 
 }
 function drawSquare(){
     // Example shape (rectangle)
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(50, 50, 80, 80);
+    beadContext.fillStyle = 'blue';
+    beadContext.fillRect(50, 50, 80, 80);
 
 }
 
@@ -297,10 +306,10 @@ function drawCircleFixed(){
     let endAngle = 2*Math.PI;
     let counterclockwise = true;
 
-    ctx.beginPath();
-    ctx.arc(x, y, radius, startAngle, endAngle, counterclockwise);
-    ctx.fillStyle = 'red';
-    ctx.fill();
+    beadContext.beginPath();
+    beadContext.arc(x, y, radius, startAngle, endAngle, counterclockwise);
+    beadContext.fillStyle = 'red';
+    beadContext.fill();
     // ctx.stroke();
 }
 
@@ -309,6 +318,6 @@ function drawCircleFixed(){
 export {
 	init_canvas,
 	processImage,
-	imageHeight as smallImageHeight,
-	imageWidth as smallImageWidth,
+	fullImageHeight as smallImageHeight,
+	fullImageWidth as smallImageWidth,
 }

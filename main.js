@@ -8,7 +8,9 @@ let imgUint8Array;
 
 
 const imageSelector = document.getElementById('image-selector');
-const smallImage = document.getElementById('small-image');
+/** @type {HTMLImageElement} */
+const smallImageElement = document.getElementById('small-image');
+const originalImageElement = document.getElementById('original-image');
 
 const input1 = document.getElementById('input1');
 const value = document.querySelector("#value");
@@ -38,13 +40,18 @@ async function loadImage(url) {
         const response = await fetch(url);
         const blob = await response.blob();
         // const imageArrayBuffer = await blob.arrayBuffer();
-        // let imgUint8Array = new Uint8Array(imageArrayBuffer);
+        // let imgUint8Array = new Uint8Array(imageArrayBuffer); 
         // canv.setPixels(imgUint8Array);
         imgURL = URL.createObjectURL(blob);
 
         
-        smallImage.src = imgURL;
-        smallImage.onload = function() {
+        smallImageElement.src = imgURL;
+        originalImageElement.src = imgURL;
+        
+        // We wait for the original image to load because it will be used for all calculations
+        originalImageElement.onload = function() {
+            console.log("smallImage.complete = ", smallImageElement.complete);
+            
             canv.processImage();
         }
 
@@ -54,10 +61,10 @@ async function loadImage(url) {
 }
 // loadImage("/images/roosevelt.jpeg")
 // loadImage("/images/roosevelt.webp")
-loadImage("/images/teddy-head-shot.webp")
+// loadImage("/images/teddy-head-shot.webp") 
 // loadImage("/images/checker.jpeg")
 // loadImage("/images/gradient.jpg")
-// loadImage("/images/pika.webp")
+loadImage("/images/pika.webp")
 // loadImage("/images/pika_1.webp")
 
 
@@ -77,7 +84,7 @@ imageSelector.addEventListener('change', function (event) {
     }
     // When sucessfully read file as URL, set the image src then call the pearl rendering function
     reader.onload = function (e) {
-        smallImage.src = e.target.result;
+        smallImageElement.src = e.target.result;
         canv.processImage()
     };
 
